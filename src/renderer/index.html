@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>terminal-save</title>
+  <link rel="stylesheet" href="./styles/theme.css">
+  <link rel="stylesheet" href="./styles/layout.css">
+</head>
+<body>
+  <div id="app">
+    <header id="toolbar"></header>
+    <main id="main">
+      <aside id="document-list" class="panel"></aside>
+      <section id="terminal-area" class="terminal-panel">
+        <div id="terminal-tabs"></div>
+        <div id="terminal-container"></div>
+      </section>
+      <aside id="notes-panel" class="panel"></aside>
+    </main>
+  </div>
+  <script type="module" src="./app.ts"></script>
+</body>
+</html>

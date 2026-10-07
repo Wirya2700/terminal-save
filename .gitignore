@@ -1,0 +1,51 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+out/
+release/
+.electron-vite/
+
+# Electron build artifacts
+build/
+*.asar
+
+# SQLite database (user data, not source)
+*.db
+*.db-shm
+*.db-wal
+
+# TypeScript
+tsconfig.tsbuildinfo
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment / secrets
+.env
+.env.local
+.env.*.local
+
+# Memory / temp files from Claude
+.claude/memory/
+.claude/commands/
+.claude/skills/
+
+# Stale paths / OS noise
+AppData/
+*.exe
