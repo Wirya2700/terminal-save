@@ -7,36 +7,11 @@
     "postbuild": "node scripts/copy-migrations.js",
     "dev": "electron-vite dev",
     "build": "electron-vite build",
-    "dist": "npm run build && electron-builder --win",
+    "dist": "npm run build && electron-builder --win --x64",
+    "dist:dir": "npm run build && electron-builder --win --x64 --dir",
     "typecheck": "tsc --noEmit",
     "rebuild": "electron-rebuild -f -w better-sqlite3 node-pty",
     "postinstall": "electron-rebuild -f -w better-sqlite3 node-pty"
-  },
-  "build": {
-    "appId": "com.terminal-save.app",
-    "productName": "terminal-save",
-    "npmRebuild": false,
-    "directories": {
-      "output": "release"
-    },
-    "files": [
-      "out/**/*",
-      "node_modules/**/*",
-      "package.json"
-    ],
-    "asarUnpack": [
-      "**/node_modules/better-sqlite3/**/*",
-      "**/node_modules/node-pty/**/*"
-    ],
-    "win": {
-      "target": [
-        "nsis"
-      ]
-    },
-    "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true
-    }
   },
   "dependencies": {
     "@xterm/addon-fit": "0.11.0",

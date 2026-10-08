@@ -1,0 +1,58 @@
+# Windows installer for terminal-save.
+# electron-builder reads this file automatically. Do not duplicate it in package.json.
+#
+# Output:
+#   release/terminal-save-Setup-<version>.exe   NSIS installer
+#   release/win-unpacked/                       unpacked app (npm run dist:dir)
+
+appId: com.terminal-save.app
+productName: terminal-save
+copyright: Copyright © 2026
+
+directories:
+  output: release
+  # Drop icon.ico here later (256x256). Until then Electron's default icon is used.
+  buildResources: resources
+
+# electron-vite emits the app into out/. Production node_modules are still packed
+# because better-sqlite3 and node-pty are required() at runtime, not bundled.
+files:
+  - out/**/*
+  - package.json
+  - "!**/*.map"
+
+asar: true
+
+# Native addons and their DLLs cannot be loaded from inside app.asar.
+# Unpack the whole packages so LoadLibrary can see .node and conpty.dll.
+asarUnpack:
+  - "**/node_modules/better-sqlite3/**/*"
+  - "**/node_modules/node-pty/**/*"
+
+# postinstall already runs electron-rebuild for Electron's ABI.
+# Rebuilding again inside electron-builder needs Visual Studio and is redundant.
+npmRebuild: false
+
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+  artifactName: ${productName}-Setup-${version}.${ext}
+  executableName: terminal-save
+
+nsis:
+  # Assisted installer: the user picks the folder. Not a one-click silent install.
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  allowElevation: true
+  createDesktopShortcut: always
+  createStartMenuShortcut: true
+  shortcutName: terminal-save
+  uninstallDisplayName: terminal-save
+  # Documents, notes, history, and layout live in %APPDATA%\terminal-save.
+  # Uninstall must leave that folder alone.
+  deleteAppDataOnUninstall: false
+  installerLanguages:
+    - en_US
