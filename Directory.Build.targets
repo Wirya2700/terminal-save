@@ -1,0 +1,13 @@
+<Project>
+  <PropertyGroup>
+    <SpectreMitigation>false</SpectreMitigation>
+    <VC_LibraryPath_VC_x64>$(VCToolsInstallDir)lib\x64</VC_LibraryPath_VC_x64>
+    <VC_LibraryPath_VC_x86>$(VCToolsInstallDir)lib\x86</VC_LibraryPath_VC_x86>
+    <LibraryPath>$(VCToolsInstallDir)lib\x64;$(VCToolsInstallDir)atlmfc\lib\x64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalLibraryDirectories>$(VCToolsInstallDir)lib\$(Platform);$(VCToolsInstallDir)atlmfc\lib\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+</Project>

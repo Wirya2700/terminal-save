@@ -122,6 +122,9 @@ export function getOrCreateTerminal(documentId: number): TerminalInstance {
     fontSize: 14,
     lineHeight: 1.3,
     scrollback: 5000,
+    // Windows console uses ANSI white/bright white as the default text color.
+    // On a light background those slots must be dark, or input like "dotnet" disappears.
+    minimumContrastRatio: 4.5,
     theme: {
       background: '#FFFFFF',
       foreground: '#1F2937',
@@ -134,7 +137,7 @@ export function getOrCreateTerminal(documentId: number): TerminalInstance {
       blue: '#2563EB',
       magenta: '#9333EA',
       cyan: '#0891B2',
-      white: '#F8FAFC',
+      white: '#1F2937',
       brightBlack: '#64748B',
       brightRed: '#EF4444',
       brightGreen: '#22C55E',
@@ -142,7 +145,7 @@ export function getOrCreateTerminal(documentId: number): TerminalInstance {
       brightBlue: '#3B82F6',
       brightMagenta: '#A855F7',
       brightCyan: '#06B6D4',
-      brightWhite: '#FFFFFF',
+      brightWhite: '#1F2937',
     },
     allowProposedApi: true,
   })

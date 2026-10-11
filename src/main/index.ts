@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, Menu } from 'electron'
 import { join } from 'path'
 import { openDatabase, closeDatabase } from './database/Database'
 import { registerDocumentHandlers } from './ipc/documents'
@@ -25,6 +25,9 @@ function createWindow(): BrowserWindow {
     },
   })
 
+  win.setMenu(null)
+  win.setMenuBarVisibility(false)
+
   if (process.env.VITE_DEV_SERVER_URL) {
     win.loadURL(process.env.VITE_DEV_SERVER_URL)
   } else {
@@ -35,6 +38,8 @@ function createWindow(): BrowserWindow {
 }
 
 app.whenReady().then(async () => {
+  Menu.setApplicationMenu(null)
+
   try {
     await openDatabase()
     registerDocumentHandlers()

@@ -7,8 +7,8 @@
     "postbuild": "node scripts/copy-migrations.js",
     "dev": "electron-vite dev",
     "build": "electron-vite build",
-    "dist": "npm run build && electron-builder --win --x64",
-    "dist:dir": "npm run build && electron-builder --win --x64 --dir",
+    "dist": "npm run build && node scripts/with-system-ca.js electron-builder --win --x64",
+    "dist:dir": "npm run build && node scripts/with-system-ca.js electron-builder --win --x64 --dir",
     "typecheck": "tsc --noEmit",
     "rebuild": "electron-rebuild -f -w better-sqlite3 node-pty",
     "postinstall": "electron-rebuild -f -w better-sqlite3 node-pty"
