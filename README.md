@@ -102,3 +102,6 @@ Dokumen, catatan, riwayat perintah, dan layout disimpan di:
 ```
 
 Database SQLite ada di file `terminal-save.db` di folder itu. Menutup aplikasi atau menghapus instalasi tidak menghapus folder ini.
+
+<img width="1182" height="386" alt="image" src="https://github.com/user-attachments/assets/deaf1c3a-cc35-4bda-b1bf-cfcdce562da2" />
+
