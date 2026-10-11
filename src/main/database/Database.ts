@@ -1,6 +1,6 @@
 import Database from 'better-sqlite3'
 import { join } from 'path'
-import { readdirSync, readFileSync } from 'fs'
+import { readdirSync, readFileSync, existsSync } from 'fs'
 import { app } from 'electron'
 
 let db: Database.Database | null = null
@@ -36,7 +36,11 @@ export function closeDatabase(): void {
 }
 
 async function runMigrations(): Promise<void> {
-  const migrationsDir = join(__dirname, 'migrations')
+  const srcMigrationsDir = join(__dirname, '../../src/main/database/migrations')
+  const migrationsDir =
+    !app.isPackaged && existsSync(srcMigrationsDir)
+      ? srcMigrationsDir
+      : join(__dirname, 'migrations')
   const files = readdirSync(migrationsDir)
   const migrationFiles = files.filter((f: string) => f.endsWith('.sql')).sort()
 

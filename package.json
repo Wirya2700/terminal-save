@@ -5,6 +5,7 @@
   "main": "out/main/index.js",
   "scripts": {
     "postbuild": "node scripts/copy-migrations.js",
+    "predev": "node scripts/copy-migrations.js",
     "dev": "electron-vite dev",
     "build": "electron-vite build",
     "dist": "npm run build && node scripts/with-system-ca.js electron-builder --win --x64",

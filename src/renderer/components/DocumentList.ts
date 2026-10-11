@@ -62,7 +62,6 @@ export function renderDocumentList(docs: Document[], activeId: number | null): v
       <span class="document-item-icon">${icons.terminal}</span>
       <div class="document-item-body">
         <span class="document-item-name">${escapeHtml(doc.name)}</span>
-        <span class="document-item-path">${escapeHtml(doc.cwd)}</span>
       </div>
       <button type="button" class="document-item-menu" title="More">${icons.more}</button>
     `
