@@ -1,107 +1,54 @@
 # terminal-save
 
-Aplikasi terminal Windows yang menyimpan dokumen, folder kerja, riwayat perintah, catatan, dan layout.
+A Windows terminal application that remembers your documents, workspace folders, command history, notes, and layouts.
 
-Panduan ini mencakup menjalankan aplikasi untuk pengembangan dan membuat paket release (`release/`).
+_Aplikasi terminal Windows yang menyimpan dokumen, folder kerja, riwayat perintah, catatan, dan layout._
 
-<img width="1182" height="386" alt="image" src="https://github.com/user-attachments/assets/deaf1c3a-cc35-4bda-b1bf-cfcdce562da2" />
+<img width="1182" height="386" alt="terminal-save preview" src="https://github.com/user-attachments/assets/deaf1c3a-cc35-4bda-b1bf-cfcdce562da2" />
 
-## Kebutuhan
+## Prerequisites
 
-Membangun release membutuhkan:
+Required for development and packaging:
+- **Windows 64-bit**
+- **Node.js 22.12+** & **npm**
+- **Visual Studio Build Tools** with the **Desktop development with C++** workload (required to compile native modules `better-sqlite3` and `node-pty`)
 
-- Windows 64-bit
-- Node.js 22.12 atau lebih baru
-- npm
-- Visual Studio Build Tools dengan workload **Desktop development with C++**
+> **Note:** End-users only need Windows 64-bit to run the application installer; Node.js is not required.
 
-`better-sqlite3` dan `node-pty` dikompilasi ulang untuk Electron saat `npm install`. Tanpa toolchain C++, install akan gagal.
+## Getting Started
 
-Menjalankan installer yang sudah jadi hanya membutuhkan Windows 64-bit. Node.js tidak diperlukan.
-
-## Menjalankan untuk development
-
-Dari folder proyek, pasang dependensi sekali:
+### Development
 
 ```powershell
+# Install dependencies and rebuild native modules
 npm install
-```
 
-`npm install` juga mengompilasi ulang `better-sqlite3` dan `node-pty` untuk Electron. Langkah ini membutuhkan Visual Studio Build Tools.
-
-Jalankan aplikasi dalam mode development:
-
-```powershell
+# Start app in development mode
 npm run dev
 ```
 
-Perintah itu membuka jendela Electron dengan hot reload. Perubahan di kode renderer langsung terlihat; perubahan di proses main atau preload membutuhkan restart proses development.
+Other development scripts:
+- `npm run typecheck` - Run TypeScript type checking.
+- `npm run build` - Compile code into `out/`.
 
-Perintah lain yang berguna saat pengembangan:
-
-```powershell
-npm run typecheck
-npm run build
-```
-
-`npm run typecheck` memeriksa tipe TypeScript tanpa menghasilkan file. `npm run build` mengompilasi main, preload, dan renderer ke folder `out/` tanpa membuat installer.
-
-## Membuat paket
-
-Dari folder proyek:
+### Packaging
 
 ```powershell
-npm install
+# Build installer (outputs to release/)
 npm run dist
-```
 
-`npm run dist` memakai sertifikat yang dipercaya Windows saat mengunduh Electron, NSIS, dan alat penandatanganan. Proxy perusahaan memasang sertifikat sendiri yang ditolak oleh penyimpanan bawaan Node, dan tanpa langkah ini pengemasan berhenti dengan `self-signed certificate in certificate chain`.
-
-Hasilnya:
-
-```text
-release/terminal-save-Setup-1.0.0.exe
-```
-
-Angka versi mengikuti `version` di `package.json`.
-
-Installer ini meminta lokasi pemasangan, lalu membuat shortcut desktop dan Start Menu.
-
-## Menjalankan installer
-
-1. Buka `release/terminal-save-Setup-1.0.0.exe`.
-2. Pilih folder instalasi, lalu selesaikan pemasangan.
-3. Jalankan **terminal-save** dari shortcut desktop, Start Menu, atau folder instalasi.
-
-Uninstall tidak menghapus data aplikasi.
-
-## Menjalankan tanpa installer
-
-Untuk mencoba hasil build tanpa memasang:
-
-```powershell
+# Build unpacked folder without installer
 npm run dist:dir
 ```
 
-Hasilnya folder:
+Artifacts are created in the `release/` folder:
+- **Installer:** `release/terminal-save-Setup-<version>.exe`
+- **Unpacked App:** `release/win-unpacked/terminal-save.exe`
 
-```text
-release/win-unpacked/
-```
+## Data Storage
 
-Jalankan:
-
-```powershell
-.\release\win-unpacked\terminal-save.exe
-```
-
-## Data tersimpan
-
-Dokumen, catatan, riwayat perintah, dan layout disimpan di:
+Application data (SQLite database, notes, and history) is stored in:
 
 ```text
 %APPDATA%\terminal-save
 ```
-
-Database SQLite ada di file `terminal-save.db` di folder itu. Menutup aplikasi atau menghapus instalasi tidak menghapus folder ini.
-
