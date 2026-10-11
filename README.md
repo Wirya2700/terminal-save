@@ -4,7 +4,8 @@ A Windows terminal application that remembers your documents, workspace folders,
 
 _Aplikasi terminal Windows yang menyimpan dokumen, folder kerja, riwayat perintah, catatan, dan layout._
 
-<img width="1182" height="386" alt="terminal-save preview" src="https://github.com/user-attachments/assets/deaf1c3a-cc35-4bda-b1bf-cfcdce562da2" />
+<img width="1171" height="490" alt="image" src="https://github.com/user-attachments/assets/26bdaaee-2125-4191-86ea-7443f37fc859" />
+
 
 ## Prerequisites
 
