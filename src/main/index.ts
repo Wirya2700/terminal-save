@@ -1,5 +1,6 @@
-import { app, BrowserWindow, Menu } from 'electron'
+import { app, BrowserWindow, Menu, nativeImage } from 'electron'
 import { join } from 'path'
+import { existsSync } from 'fs'
 import { openDatabase, closeDatabase } from './database/Database'
 import { registerDocumentHandlers } from './ipc/documents'
 import { registerNotesHandlers } from './ipc/notes'
@@ -9,7 +10,29 @@ import { registerTerminalHandlers, flushAllCwd } from './ipc/terminal'
 import { registerDbHandlers } from './ipc/db'
 import { registerDialogHandlers } from './ipc/dialog'
 
+function getAppIcon(): Electron.NativeImage | undefined {
+  const candidates = [
+    join(__dirname, 'icon.ico'),
+    join(__dirname, 'icon.png'),
+    join(__dirname, '../../resources/icon.ico'),
+    join(__dirname, '../../resources/icon.png'),
+    join(process.resourcesPath, 'icon.ico'),
+    join(process.resourcesPath, 'icon.png'),
+  ]
+  for (const candidate of candidates) {
+    if (existsSync(candidate)) {
+      const img = nativeImage.createFromPath(candidate)
+      if (!img.isEmpty()) {
+        return img
+      }
+    }
+  }
+  return undefined
+}
+
 function createWindow(): BrowserWindow {
+  const icon = getAppIcon()
+
   const win = new BrowserWindow({
     width: 1200,
     height: 800,
@@ -17,6 +40,7 @@ function createWindow(): BrowserWindow {
     minHeight: 500,
     frame: true,
     backgroundColor: '#F7F8FA',
+    ...(icon ? { icon } : {}),
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: false,
@@ -38,6 +62,9 @@ function createWindow(): BrowserWindow {
 }
 
 app.whenReady().then(async () => {
+  if (process.platform === 'win32') {
+    app.setAppUserModelId('com.terminal-save.app')
+  }
   Menu.setApplicationMenu(null)
 
   try {

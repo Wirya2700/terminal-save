@@ -38,6 +38,10 @@ export function initNotesPanel(): void {
   textarea.id = 'notes-content'
   textarea.placeholder = 'Write notes here...'
   textarea.disabled = true
+  textarea.spellcheck = false
+  textarea.setAttribute('autocomplete', 'off')
+  textarea.setAttribute('autocorrect', 'off')
+  textarea.setAttribute('autocapitalize', 'off')
   root.appendChild(textarea)
 
   statusEl = document.createElement('div')

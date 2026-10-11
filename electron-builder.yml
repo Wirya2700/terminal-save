@@ -11,13 +11,13 @@ copyright: Copyright © 2026
 
 directories:
   output: release
-  # Drop icon.ico here later (256x256). Until then Electron's default icon is used.
   buildResources: resources
 
 # electron-vite emits the app into out/. Production node_modules are still packed
 # because better-sqlite3 and node-pty are required() at runtime, not bundled.
 files:
   - out/**/*
+  - resources/**/*
   - package.json
   - "!**/*.map"
 
@@ -34,6 +34,7 @@ asarUnpack:
 npmRebuild: false
 
 win:
+  icon: resources/icon.ico
   target:
     - target: nsis
       arch:

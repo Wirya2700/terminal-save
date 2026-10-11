@@ -14,4 +14,13 @@ for (const file of files) {
   }
 }
 
-console.log(`Copied ${files.filter(f => f.endsWith('.sql')).length} migration(s) to out/main/migrations/`)
+const resourcesDir = path.join(root, 'resources')
+const outMainDir = path.join(root, 'out', 'main')
+for (const icon of ['icon.ico', 'icon.png']) {
+  const src = path.join(resourcesDir, icon)
+  if (fs.existsSync(src)) {
+    fs.copyFileSync(src, path.join(outMainDir, icon))
+  }
+}
+
+console.log(`Copied ${files.filter(f => f.endsWith('.sql')).length} migration(s) and icons to out/main/`)
